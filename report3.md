@@ -57,8 +57,8 @@ Khi bắn xong thì sẽ như sau
 
 II. Các việc cần làm tiếp theo
 
-- Hoàn thành đống API còn lại alerting, notification, dashboard,...
-- Hoàn thành UI alerting, notification, dashboard,...
+- Hoàn thành đống API còn lại alerting, automation, notification, dashboard,...
+- Hoàn thành UI alerting, automation, notification, dashboard,...
 - Hoàn thành UI cho ông Admin
 - Hoàn thành nghiệp vụ Device Template - nghĩa là định nghĩa trước các thông số của thiết bị cha để sau này có thể thêm thiết bị mới mà không cần phải cấu hình lại
 - Hoàn thành thêm các tutorial về việc sử dụng các thiết bị gateway với sensor khác nhau như: 
@@ -69,4 +69,4 @@ II. Các việc cần làm tiếp theo
   - ESP8266 + MQ2 cảm biến khí ga
   - ESP8266 + Relay bật tắt thiết bị
   
-  -> Khi đó tạo ra 1 library arduino để kết nối với platform để người dùng có thể sử dụng dễ dàng hơn
+  -> Khi đó tạo ra 1 library arduino để kết nối với platform để người dùng có thể sử dụng dễ dàng hơn (Việc này e xin làm cuối để hoàn thiện nốt cái platform) + cũng cần tham khảo thêm cái phát wifi của thầy 
