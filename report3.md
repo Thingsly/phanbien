@@ -4,7 +4,7 @@ I. Xử lý các việc trong buổi gặp thầy lần trước
 
 Thêm swagger UI đầy đủ cho API Device
 
-![alt text](image.png)
+![alt text](swagger.png)
 
 1. Hoàn thành cơ chế phát hiện ON/OFF của thiết bị để không phụ thuộc vào tối đa bản thân thiết bị đó -> Platform sẽ đảm đương chủ động làm
 
