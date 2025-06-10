@@ -1,3 +1,3 @@
-# tutorial
+# Repo căng cực ôn lại toàn bộ đồ án phục vụ đồ án - Let's go 
 
-Hướng dẫn setup ESP8266 + DHT22 kết nối đến platform
+Bảo vệ xong là được chinh chiến Ha Giang Loop rồi - Ae biker đợi tôi
