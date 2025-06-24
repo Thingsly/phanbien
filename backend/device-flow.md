@@ -29,9 +29,11 @@ sequenceDiagram
 ```
 
 **Chi tiết:**
+
 - Device được tạo trong database với thông tin cơ bản
 - Hệ thống tự động sinh voucher chứa username/password cho MQTT authentication
 - Voucher được lưu trong trường `voucher` của device dưới dạng JSON:
+  
   ```json
   {
     "username": "8cc60abf-40ab-b725-6d9",
@@ -123,16 +125,19 @@ err = SetStr("mqtt_client_id_"+string(req.Connect.ClientID), device.ID, 0)
 Cache voucher trong Redis có các tác dụng chính:
 
 #### **3.1.1. Tăng Tốc Độ Authentication**
+
 - **Giảm Database Queries**: Thay vì query database mỗi lần device kết nối
 - **Low Latency**: Redis access nhanh hơn database query
 - **High Throughput**: Xử lý hàng nghìn device connections đồng thời
 
 #### **3.1.2. Giảm Tải Database**
+
 - **Connection Pool**: Giảm số lượng database connections
 - **Query Optimization**: Tránh repeated queries cho cùng voucher
 - **Resource Management**: Tiết kiệm CPU và I/O resources
 
 #### **3.1.3. Scalability**
+
 - **Horizontal Scaling**: GMQTT instances có thể share cache
 - **Load Distribution**: Phân tán authentication load
 - **Fault Tolerance**: Cache persistence và recovery
@@ -179,7 +184,7 @@ func GetDeviceByVoucher(voucher string) (*Device, error) {
 
 ### 3.3. Cache Key Patterns
 
-```
+```txt
 # Voucher -> Device ID mapping
 voucher_json -> device_id
 
@@ -191,7 +196,8 @@ mqtt_client_id_{client_id} -> device_id
 ```
 
 **Ví dụ:**
-```
+
+```txt
 Key: {"username":"8cc60abf-40ab-b725-6d9","password":"b7e693c"}
 Value: device_12345
 
@@ -202,6 +208,7 @@ Value: {"id":"device_12345","name":"Sensor01","voucher":"{...}"}
 ### 3.4. Cache Invalidation
 
 #### **3.4.1. Khi Update Voucher**
+
 ```go
 // Từ backend/internal/service/device.go
 func (*Device) UpdateDeviceVoucher(ctx context.Context, param *model.UpdateDeviceVoucherReq) (string, error) {
@@ -220,6 +227,7 @@ func (*Device) UpdateDeviceVoucher(ctx context.Context, param *model.UpdateDevic
 ```
 
 #### **3.4.2. Khi Delete Device**
+
 ```go
 // Clear all related caches
 initialize.DelDeviceCache(deviceId)
@@ -229,16 +237,19 @@ global.REDIS.Del(ctx, device.Voucher)
 ### 3.5. Cache Performance Metrics
 
 #### **3.5.1. Hit Rate**
+
 - **Target**: >90% cache hit rate
 - **Monitoring**: Redis INFO command
 - **Optimization**: TTL và cache size tuning
 
 #### **3.5.2. Latency**
+
 - **Cache Hit**: <1ms
 - **Cache Miss**: ~10-50ms (database query)
 - **Database Query**: ~100-500ms
 
 #### **3.5.3. Throughput**
+
 - **Redis**: 100,000+ operations/second
 - **Database**: 1,000-10,000 queries/second
 - **Improvement**: 10-100x performance boost
@@ -246,6 +257,7 @@ global.REDIS.Del(ctx, device.Voucher)
 ### 3.6. Cache Management
 
 #### **3.6.1. TTL (Time To Live)**
+
 ```go
 // Voucher cache - no expiration (until invalidated)
 SetStr(voucher, device.ID, 0)
@@ -258,6 +270,7 @@ SetStr("mqtt_client_id_"+clientID, device.ID, 0)
 ```
 
 #### **3.6.2. Memory Management**
+
 ```go
 // Redis configuration
 maxmemory: 1gb
@@ -265,6 +278,7 @@ maxmemory-policy: allkeys-lru
 ```
 
 #### **3.6.3. Backup và Recovery**
+
 ```bash
 # Redis persistence
 save 900 1
@@ -367,7 +381,7 @@ func (t *Thingsly) OnConnectWrapper(pre server.OnConnect) server.OnConnect {
 
 ### 6.2. Key Patterns
 
-```
+```txt
 # Device mapping
 mqtt_client_id_{client_id} -> device_id
 
